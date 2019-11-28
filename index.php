@@ -80,17 +80,20 @@
 <!--File: index.php
     Author: Austin Nadler -->
 <?php echo $prompt; ?>
-
 <p>All customers are listed below. Click on a name to view vehicles & permits.</p>
+
 </header>
 <p class="w3-center">
     <a href="logout.php" title="Sign out" class="fa fa-sign-out w3-round-large w3-btn w3-blue"> Sign Out</a>
 </p>
-<h2 id="updateField" class="w3-green w3-center">
-    <?php if(!empty($updateMessage)) { echo ($updateMessage . "<i id='hideMessage' class='fa fa-times w3-large w3-btn w3-right-align'></i>"); } ?>
-</h2>
+<div class="w3-content me-indexUpdateMessage">
+    <h2 id="updateField" class="w3-card-4 w3-round-large w3-green w3-center">
+        <?php if(!empty($updateMessage)) { echo ($updateMessage . "<span id='hideMessage' class='w3-large w3-btn w3-right-align'> X</span>"); } ?>
+    </h2>
+
+</div>
 <title>Home</title>
-<div class="w3-content" style="max-width:700px">
+<div class="w3-content me-customerTable">
     <div class="w3-panel">
         <?php echo FetchAndDisplayRecords() ?>
     </div>

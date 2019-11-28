@@ -131,11 +131,13 @@
         class="fa fa-trash w3-btn w3-blue w3-round-large">&ensp;&ensp;Delete Customer
     </a>
 </p>
-<h2 id="updateField" class="w3-green w3-center">
-    <?php if(!empty($message)) { echo ($message . "<i id='hideMessage' class='fa fa-times w3-large w3-btn w3-right-align'></i>"); } ?>
-</h2>
+<div class="w3-content me-listCustomerInfoUpdateMessage">
+    <h2 id="updateField" class="w3-green w3-center w3-round-large">
+        <?php if(!empty($message)) { echo ($message . "<span id='hideMessage' class='w3-small w3-btn w3-right-align'>  X</span>"); } ?>
+    </h2>
+</div>
 
-<div class="w3-content" style="max-width:900px">
+<div class="w3-content me-vehicleTable">
     <div class="w3-panel">
         <?php fetchAndDisplayRecords() ?>
     </div>
