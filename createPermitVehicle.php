@@ -44,7 +44,6 @@
 
     function savePermit($id, $license, $make, $model) {
         try {
-            $license = strtoupper($license);
             // require 'includes/inc.db.php'; // included above
             $pdo = new PDO(DSN, USER, PWD);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -72,9 +71,9 @@
 
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $customerID = sanitize($_POST['id']);
-        $make       = sanitize($_POST['make']);
-        $model      = sanitize($_POST['model']);
-        $license    = sanitize($_POST['licensePlate']);
+        $make       = ucwords(sanitize($_POST['make']));
+        $model      = ucwords(sanitize($_POST['model']));
+        $license    = strtoupper(sanitize($_POST['licensePlate']));
 
         $isEmptyMake    = empty($make);
         $isEmptyModel   = empty($model);   

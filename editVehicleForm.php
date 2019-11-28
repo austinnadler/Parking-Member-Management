@@ -44,8 +44,8 @@
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
         // echo 'Saving changes to database...';
         $id      = sanitize($_POST['id']);
-        $make    = sanitize($_POST['make']);
-        $model   = sanitize($_POST['model']);
+        $make    = ucwords(sanitize($_POST['make']));
+        $model   = ucwords(sanitize($_POST['model']));
         $license = sanitize($_POST['licensePlate']);
 
         $isEmptyMake    = empty($make);

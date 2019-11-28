@@ -20,7 +20,6 @@
 
     function savePermit($first, $last, $phone, $license, $make, $model) {
         try {
-            $license = strtoupper($license);
             require 'includes/inc.db.php';
             $pdo = new PDO(DSN, USER, PWD);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -72,12 +71,12 @@
 
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-        $first   = sanitize($_POST['first']);
-        $last    = sanitize($_POST['last']);
+        $first   = ucwords(sanitize($_POST['first']));
+        $last    = ucwords(sanitize($_POST['last']));
         $phone   = sanitize($_POST['phone']);
-        $make    = sanitize($_POST['make']);
-        $model   = sanitize($_POST['model']);
-        $license = sanitize($_POST['licensePlate']);
+        $make    = ucwords(sanitize($_POST['make']));
+        $model   = ucwords(sanitize($_POST['model']));
+        $license = strtoupper(sanitize($_POST['licensePlate']));
 
         // Are any of the fields empty?
         $isEmptyFirst       = empty($first);

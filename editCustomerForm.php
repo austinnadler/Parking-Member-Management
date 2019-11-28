@@ -52,8 +52,8 @@
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
         // echo 'Saving changes to database...';
         $id      = sanitize($_POST['id']);
-        $first   = sanitize($_POST['first']);
-        $last    = sanitize($_POST['last']);
+        $first   = ucwords(sanitize($_POST['first']));
+        $last    = ucwords(sanitize($_POST['last']));
         $phone   = sanitize($_POST['phone']);
 
         // Are any of the fields empty?
