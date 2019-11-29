@@ -88,7 +88,7 @@
 </p>
 <div class="w3-content me-indexUpdateMessage">
     <h2 id="updateField" class="w3-card-4 w3-round-large w3-green w3-center">
-        <?php if(!empty($updateMessage)) { echo ($updateMessage . "<span id='hideMessage' class='w3-large w3-btn w3-right-align'> X</span>"); } ?>
+        <?php if(!empty($updateMessage)) { echo ($updateMessage . "<p id='hideMessage' class='w3-large fa fa-times w3-btn w3-round-large w3-right-align'></p>"); } ?>
     </h2>
 
 </div>

@@ -11,7 +11,7 @@
                         <span id="makeValidIcon" class="w3-text-red"> *</span> 
             </p>
             <p>
-                <span class="w3-tiny">Model, max 30 characters</span><br>
+                <span class="w3-tiny">Model, max 20 characters</span><br>
                 <input  required
                         type="text" 
                         name="model"

@@ -133,7 +133,7 @@
 </p>
 <div class="w3-content me-listCustomerInfoUpdateMessage">
     <h2 id="updateField" class="w3-green w3-center w3-round-large">
-        <?php if(!empty($message)) { echo ($message . "<span id='hideMessage' class='w3-small w3-btn w3-right-align'>  X</span>"); } ?>
+        <?php if(!empty($message)) { echo ($message . "<p id='hideMessage' class='w3-large fa fa-times w3-btn w3-round-large w3-right-align'></p>"); } ?>
     </h2>
 </div>
 
