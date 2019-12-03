@@ -114,6 +114,7 @@
                             name="first"
                             id="first"
                             placeholder="First name"
+                            maxlength="15"
                             value="<?php echo $first ?>">
                             <span id="firstValidIcon" class="w3-text-red"> *</span> 
                 </p>
@@ -124,6 +125,7 @@
                             name="last"
                             id="last"
                             placeholder="Last name"
+                            maxlength="20"
                             value="<?php echo $last ?>">
                             <span id="lastValidIcon" class="w3-text-red"> *</span> 
                 </p>
@@ -134,6 +136,7 @@
                             name="phone"
                             id="phone"
                             placeholder="10-digit phone"
+                            maxlength="10"
                             value="<?php echo $phone ?>">
                             <span id="phoneValidIcon" class="w3-text-red"> *</span> 
                 </p>

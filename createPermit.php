@@ -53,7 +53,7 @@
             $recordC = $customerStatement->fetch();
             $customerFK = $recordC['id'];
 
-            // use the customer and vehicle ID to
+            // use the customer and vehicle ID to create the permit
             $sql = "
                 INSERT INTO permits
                 (customer\$id, vehicle\$id)
@@ -70,12 +70,11 @@
     }
 
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
-
         $first   = ucwords(sanitize($_POST['first']));
         $last    = ucwords(sanitize($_POST['last']));
         $phone   = sanitize($_POST['phone']);
-        $make    = ucwords(sanitize($_POST['make']));
-        $model   = ucwords(sanitize($_POST['model']));
+        $make    = sanitize($_POST['make']);
+        $model   = sanitize($_POST['model']);
         $license = strtoupper(sanitize($_POST['licensePlate']));
 
         // Are any of the fields empty?
@@ -127,6 +126,7 @@
                         name="first"
                         id="first"
                         placeholder="First name"
+                        maxlength="15"
                         value="<?php echo $first ?>">
                         <span id="firstValidIcon" class="w3-text-red"> *</span> 
             </p>
@@ -137,6 +137,7 @@
                         name="last"
                         id="last"
                         placeholder="Last name"
+                        maxlength="20"
                         value="<?php echo $last ?>">
                         <span id="lastValidIcon" class="w3-text-red"> *</span> 
             </p>
@@ -147,6 +148,7 @@
                         name="phone"
                         id="phone"
                         placeholder="10-digit phone"
+                        maxlength="10"
                         value="<?php echo $phone ?>">
                         <span id="phoneValidIcon" class="w3-text-red"> *</span> 
             </p>
@@ -157,6 +159,7 @@
                         name="make"
                         id="make"
                         placeholder="Make"
+                        maxlength="15"
                         value="<?php echo $make ?>">
                         <span id="makeValidIcon" class="w3-text-red"> *</span> 
             </p>
@@ -167,6 +170,7 @@
                         name="model"
                         id="model"
                         placeholder="Model"
+                        maxlength="20"
                         value="<?php echo $model ?>">
                         <span id="modelValidIcon" class="w3-text-red"> *</span> 
             </p>
@@ -177,6 +181,7 @@
                         name="licensePlate"
                         id="licensePlate"
                         placeholder="License Plate"
+                        maxlength="10"
                         value="<?php echo $license ?>">
                         <span id="licensePlateValidIcon" class="w3-text-red"> *</span>  
             </p>

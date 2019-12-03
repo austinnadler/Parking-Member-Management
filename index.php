@@ -11,7 +11,7 @@
         header('Location: login.php');
         die;
     }
-
+    
     $updateMessage = empty($_GET['updateMessage'])? '' : sanitize($_GET['updateMessage']); // if coming from a create or delete page, update message will give confirmation
     $message = empty($_GET['message'])? 'Welcome' : sanitize($_GET['message']);
     $prompt = '<h1>'. $message . ', '. $_SESSION['username'] . '!</h1>';
@@ -44,7 +44,6 @@
     }
 
     function createTable(PDOStatement $pdoStatement) : string {
-
         $table = '
                 <table class="w3-table-all w3-card-4">
                     <tr class="w3-red">
@@ -56,7 +55,6 @@
 
         // Fetch each row as an associative array.
         while ( $row = $pdoStatement->fetch() ) {
-
             $customerID = $row['id'];
             $customerName = $row['customer'];
             $phone = $row['phone'];
@@ -87,8 +85,8 @@
     <a href="logout.php" title="Sign out" class="fa fa-sign-out w3-round-large w3-btn w3-blue"> Sign Out</a>
 </p>
 <div class="w3-content me-indexUpdateMessage">
-    <h2 id="updateField" class="w3-card-4 w3-round-large w3-green w3-center">
-        <?php if(!empty($updateMessage)) { echo ($updateMessage . "<p id='hideMessage' class='w3-large fa fa-times w3-btn w3-round-large w3-right-align'></p>"); } ?>
+    <h2 id="updateField" class="w3-card-4 w3-round w3-green w3-center">
+        <?php if(!empty($updateMessage)) { echo ($updateMessage . "<a id='hideMessage' class='w3-large fa fa-times w3-btn'></a>"); } ?>
     </h2>
 
 </div>

@@ -71,8 +71,8 @@
 
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $customerID = sanitize($_POST['id']);
-        $make       = ucwords(sanitize($_POST['make']));
-        $model      = ucwords(sanitize($_POST['model']));
+        $make       = sanitize($_POST['make']);
+        $model      = sanitize($_POST['model']);
         $license    = strtoupper(sanitize($_POST['licensePlate']));
 
         $isEmptyMake    = empty($make);
@@ -96,7 +96,8 @@
     }
     require 'includes/inc.headerCrud.php';
 ?>
-<p class="w3-center w3-large">Create new vehicle for <?php echoName() ?></p>
+<title>Create New Vehicle & Permit for <?php echoName() ?></title>
+<p class="w3-center w3-large">Create new vehicle & permit for <?php echoName() ?></p>
 <p class="w3-center">
     <a onclick="history.back()"><i class="fa fa-arrow-left w3-btn w3-blue w3-round-large"></i></a>
 </p>

@@ -7,6 +7,7 @@
                         name="make"
                         id="make"
                         placeholder="Make"
+                        maxlength="15"
                         value="<?php echo $make ?>">
                         <span id="makeValidIcon" class="w3-text-red"> *</span> 
             </p>
@@ -17,6 +18,7 @@
                         name="model"
                         id="model"
                         placeholder="Model"
+                        maxlength="20"
                         value="<?php echo $model ?>">
                         <span id="modelValidIcon" class="w3-text-red"> *</span> 
             </p>
@@ -27,6 +29,7 @@
                         name="licensePlate"
                         id="licensePlate"
                         placeholder="License Plate"
+                        maxlength="10"
                         value="<?php echo $license ?>">
                         <span id="licensePlateValidIcon" class="w3-text-red"> *</span>  
             </p>

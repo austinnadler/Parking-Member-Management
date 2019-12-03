@@ -18,13 +18,11 @@
             $pdo = new PDO(DSN, USER, PWD);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             // check if the username is already taken
-            $statement = $pdo->prepare("
-                                        SELECT username FROM users WHERE username = :name
-                                       ");
-            $statement->bindParam(':name', $username);
-            $statement->execute();
+            $pdoStatement = $pdo->query("
+                                        SELECT username FROM users WHERE username = '$username'
+                                    ");
             // if a record is found then the username already exists in the db
-            if($statement->rowCount() != 0) {
+            if($pdoStatement->rowCount() > 0) {
                 // $usernameError = 'That username is already taken';
                 return 'That username is taken';
             } else {
@@ -35,7 +33,7 @@
                         VALUES
                         ('$username', '$encryptedPassword')
                         ";
-                $statement = $pdo->exec($sql);
+                $pdoStatement = $pdo->exec($sql);
                 header('Location: login.php');
                 die;
             }
@@ -109,7 +107,7 @@
                     <span id="passwordValidationIcon" class="w3-text-red"> *</span>
         </p>
         <p class="w3-center">
-            <input type="checkbox" id="showPassword"> Show password
+            <input type="checkbox" id="showPassword" class="w3-check"> Show password
         </p>
         <p class="w3-center">
             <button class="w3-btn w3-blue w3-round-large"  name="submit">Submit</button>

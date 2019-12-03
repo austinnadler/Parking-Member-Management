@@ -44,9 +44,9 @@
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
         // echo 'Saving changes to database...';
         $id      = sanitize($_POST['id']);
-        $make    = ucwords(sanitize($_POST['make']));
-        $model   = ucwords(sanitize($_POST['model']));
-        $license = sanitize($_POST['licensePlate']);
+        $make    = sanitize($_POST['make']);
+        $model   = sanitize($_POST['model']);
+        $license = strtoupper(sanitize($_POST['licensePlate']));
 
         $isEmptyMake    = empty($make);
         $isEmptyModel   = empty($model);
@@ -62,7 +62,6 @@
 
         if(!$hasError) {
             require 'includes/inc.db.php';
-            $license = strtoupper($license);
             try {
                 $pdo = new PDO(DSN, USER, PWD);
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

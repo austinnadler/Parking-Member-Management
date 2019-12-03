@@ -45,7 +45,6 @@
                         $invalidLoginError = 'That username / password combination was not found';
                     }
                 } else {
-                    // $username = '';
                     $invalidLoginError = 'That username / password combination was not found';
                 }
             } catch(PDOException $e) {
@@ -99,7 +98,7 @@
                     <span id="passwordValidationIcon" class="w3-text-red"> *</span>
         </p>
         <p class="w3-center">
-            <input type="checkbox" id="showPassword"> Show password
+            <input type="checkbox" id="showPassword" class="w3-check"> Show password
         </p>
         <p class="w3-center">
             <button class="w3-btn w3-blue w3-round-large"  name="submit">Submit</button>
