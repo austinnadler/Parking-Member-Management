@@ -28,7 +28,7 @@ CREATE TABLE `customers` (
   `last` varchar(20) NOT NULL,
   `phone` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `customers` (
 
 LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-INSERT INTO `customers` VALUES (2,'Tim','Apple','8002752273'),(4,'Heather Mae','Daiquiri','7891148347'),(5,'Michael','Henderson','1112223333'),(6,'Rick','James','1234123441'),(10,'Cameron','Fitzgerald','1234123490'),(22,'Bill','Little','8794072314'),(23,'Ricky','Bobby','9908839273'),(24,'Rich','Guy','9993380946'),(27,'Jimmy','Neutron','8056893542'),(28,'Bo','Duke','9079058403');
+INSERT INTO `customers` VALUES (66,'Tim','Apple','8002733323'),(67,'Austin','Nadler','6187951623'),(68,'Ricky','Bobby','3219997788'),(69,'Bill','Little','4569129384'),(70,'Rick','Sanchez','9897749999'),(71,'Zachary','North','7779993343');
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -52,12 +52,14 @@ CREATE TABLE `permits` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `customer$id` int(10) unsigned NOT NULL,
   `vehicle$id` int(10) unsigned NOT NULL,
+  `dateIssued` char(10) NOT NULL,
+  `dateExpires` char(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `customer$id` (`customer$id`),
   KEY `vehicle$id` (`vehicle$id`),
   CONSTRAINT `permits_ibfk_1` FOREIGN KEY (`customer$id`) REFERENCES `customers` (`id`),
   CONSTRAINT `permits_ibfk_2` FOREIGN KEY (`vehicle$id`) REFERENCES `vehicles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=145 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +68,7 @@ CREATE TABLE `permits` (
 
 LOCK TABLES `permits` WRITE;
 /*!40000 ALTER TABLE `permits` DISABLE KEYS */;
-INSERT INTO `permits` VALUES (5,4,5),(7,5,7),(29,5,6),(40,6,13),(44,10,17),(53,2,18),(54,2,19),(59,22,24),(64,22,29),(65,4,30),(66,23,31),(67,24,32),(72,2,37),(73,2,38),(74,27,39),(76,28,41);
+INSERT INTO `permits` VALUES (135,66,100,'12/04/2019','12/04/2020'),(136,67,101,'12/04/2019','12/04/2020'),(137,67,102,'12/04/2019','12/04/2020'),(138,66,103,'12/04/2019','12/04/2020'),(139,68,104,'12/04/2019','12/04/2020'),(140,69,105,'12/04/2019','12/04/2020'),(141,69,106,'12/04/2019','12/04/2020'),(142,70,107,'12/04/2019','12/04/2020'),(143,69,108,'12/04/2019','12/04/2020'),(144,71,109,'12/04/2019','12/04/2020');
 /*!40000 ALTER TABLE `permits` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,7 +84,7 @@ CREATE TABLE `users` (
   `username` varchar(20) NOT NULL,
   `password` varchar(60) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +93,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (5,'guest','$2y$10$BO8B.HI1Zy8i3REVGoSf.uiTS1up6yg0d8xZWap00wxnf0pfraDDy');
+INSERT INTO `users` VALUES (5,'guest','$2y$10$BO8B.HI1Zy8i3REVGoSf.uiTS1up6yg0d8xZWap00wxnf0pfraDDy'),(6,'Austin','$2y$10$JXtfiNVHgOTIe2ORwpl5KOrfyC9AsxuJ7MWlr7yq914U1JxD.OONS');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,7 +113,7 @@ CREATE TABLE `vehicles` (
   PRIMARY KEY (`id`),
   KEY `customer$id` (`customer$id`),
   CONSTRAINT `vehicles_ibfk_1` FOREIGN KEY (`customer$id`) REFERENCES `customers` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=110 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -120,7 +122,7 @@ CREATE TABLE `vehicles` (
 
 LOCK TABLES `vehicles` WRITE;
 /*!40000 ALTER TABLE `vehicles` DISABLE KEYS */;
-INSERT INTO `vehicles` VALUES (5,4,'Alfa Romeo','Stelvio','KL 9090'),(6,5,'Chevy','Silverado','S01 8893'),(7,5,'Ford','Focus','ADS0032'),(13,6,'Lamborghini','Murcielago','900 AHF'),(17,10,'Tesla','Model S','FITZ 94'),(18,2,'Apple','iCar Pro','AAPL 941'),(19,2,'BMW','5 Series','AAPL 512'),(24,22,'Ford','Focus','E33 3920'),(29,22,'Ford','F 150','US 1973'),(30,4,'Tesla','Model S','E 939'),(31,23,'Chevrolet','Malibu','FF 9839'),(32,24,'Lamborghini','Hurican','900 HP'),(37,2,'Porsche','Boxter','ADS 2344'),(38,2,'Apple','iCar Pro Max','AAPL 1024'),(39,27,'Maserati','Gran Turismo','JN 2344'),(41,28,'Dodge','Charger','CNH 320');
+INSERT INTO `vehicles` VALUES (100,66,'Apple','iCar Pro','AAPL 941'),(101,67,'Ford','Explorer','B27 4079'),(102,67,'Toyota','Camry','Z25 V980'),(103,66,'Apple','iCar Pro Max','AAPL 1022'),(104,68,'Chevrolet','Malibu','APLBS'),(105,69,'Ford','F 150','US 1973'),(106,69,'Ford','Focus','E33 9394'),(107,70,'Ferrari','F 40','FER 9835'),(108,69,'Buick','Enclave','BUE 3412'),(109,71,'Volkswagen','Jetta','BIK 4354');
 /*!40000 ALTER TABLE `vehicles` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -133,4 +135,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-20 11:30:09
+-- Dump completed on 2019-12-03 22:32:43
