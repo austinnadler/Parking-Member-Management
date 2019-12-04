@@ -15,9 +15,32 @@
 
     $customerID = empty($_GET['id'])? '' : sanitize($_GET['id']);
     $make = $model = $license = "";
+
+    $month = Date('m');
+    $day = Date('d');
+    $year = Date('Y');
+    $currentDate = $month . '/' . $day . '/' . $year;
     
     function sanitize($value) {
         return htmlspecialchars(stripslashes(trim($value)));
+    }
+
+    function calculateExpiration($month, $day, $year) {
+        $month += 12; // expires after 12 months
+        // if the month is greater than 12 then it needs to be fixed, and the year needs to be incremented
+        if($month == 13)      { $month = 1;   $year += 1; }
+        else if($month == 14) { $month = 2;   $year += 1; }
+        else if($month == 15) { $month = 3;   $year += 1; }
+        else if($month == 16) { $month = 4;   $year += 1; }
+        else if($month == 17) { $month = 5;   $year += 1; }
+        else if($month == 18) { $month = 6;   $year += 1; }
+        else if($month == 19) { $month = 7;   $year += 1; }
+        else if($month == 20) { $month = 8;   $year += 1; }
+        else if($month == 21) { $month = 9;   $year += 1; }
+        else if($month == 22) { $month = 10;  $year += 1; }
+        else if($month == 23) { $month = 11;  $year += 1; }
+        else if($month == 24) { $month = 12;  $year += 1; }
+        return ($month . '/' . $day . '/' . $year);
     }
 
     function echoName() {
@@ -43,6 +66,8 @@
     }
 
     function savePermit($id, $license, $make, $model) {
+        global $month, $day, $year, $currentDate;
+        $expirationDate = calculateExpiration($month, $day, $year);
         try {
             // require 'includes/inc.db.php'; // included above
             $pdo = new PDO(DSN, USER, PWD);
@@ -55,9 +80,9 @@
                 ($id, '$license', '$make', '$model');
 
                 INSERT INTO permits
-                (customer\$id, vehicle\$id)
+                (customer\$id, vehicle\$id, dateIssued, dateExpires)
                 VALUES
-                ($id, LAST_INSERT_ID()); 
+                ($id, LAST_INSERT_ID(), '$currentDate', '$expirationDate'); 
             ";
 
             $statement = $pdo->exec($sql);

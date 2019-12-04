@@ -52,6 +52,8 @@
             $sql = "
                 SELECT 
                 p.id AS 'permitID',
+                p.dateIssued AS issued,
+                p.dateExpires AS expires,
                 c.id AS 'customerID', 
                 CONCAT(c.last, ', ', c.first) AS 'customer', 
                 c.phone AS phone, 
@@ -77,6 +79,8 @@
                 <table class="w3-table-all w3-card-4">
                     <tr class="w3-red">
                         <th>Permit ID</th>
+                        <th>Issued On</th>
+                        <th>Expires On</th>
                         <th>Vehicle ID</th>
                         <th>Make</th>
                         <th>Model</th>
@@ -88,6 +92,8 @@
         // Fetch each row as an associative array.
         while ( $row = $pdoStatement->fetch() ) {
             $customerID = $row['customerID'];
+            $issued = $row['issued'];
+            $expires = $row['expires'];
             $permitID = $row['permitID'];
             $vehicleID = $row['vehicleID'];
             $make = $row['make'];
@@ -98,6 +104,8 @@
             $table .= "
                 <tr>
                     <td>$permitID</td>
+                    <td>$issued</td>
+                    <td>$expires</td>
                     <td>$vehicleID</td>
                     <td>$make</td>
                     <td>$model</td>
