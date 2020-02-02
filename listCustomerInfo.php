@@ -27,7 +27,8 @@
             $sql = "
                 SELECT 
                 CONCAT(last, ', ', first) AS name,
-                phone
+                phone,
+                licenseNum
                 FROM customers
                 WHERE id=$customerID
             ";
@@ -55,6 +56,7 @@
                 p.dateIssued AS issued,
                 p.dateExpires AS expires,
                 c.id AS 'customerID', 
+                c.licenseNum as licenseNum,
                 CONCAT(c.last, ', ', c.first) AS 'customer', 
                 c.phone AS phone, 
                 v.id AS vehicleID, 
@@ -66,6 +68,7 @@
             ";
             $pdoStatement = $pdo->query($sql);
             echo createTable($pdoStatement);
+            $row = $pdoStatement->fetch();
             $pdo = null;
         } catch(PDOException $e) {
             die ($e->getMessage() );
@@ -73,7 +76,6 @@
     }
 
     function createTable(PDOStatement $pdoStatement) : string {
-
         $table = '
             <form action="" method="GET">
                 <table class="w3-table-all w3-card-4">
@@ -99,6 +101,7 @@
             $make = $row['make'];
             $model = $row['model'];
             $licensePlate = $row['license'];
+            $licenseNum = $row['licenseNum'];
 
             // add each row, and buttons to delete or edit them.
             $table .= "
@@ -117,7 +120,7 @@
                 </tr>
             ";
         }
-        $table .= '</table></form>';
+        $table .= "</table></form><p class='w3-center w3-small w3-text-grey'>Driver's License #: $licenseNum</p>";
         return $table;
     }
     require 'includes/inc.headerCrud.php';

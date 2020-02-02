@@ -9,8 +9,8 @@
         die;
     }
     
-    $first = $last = $phone = $make = $model = $license = '';
-    $error = $licenseError = $phoneError = $firstNameError = $lastNameError = $makeError = $modelError = '';
+    $first = $last = $licenseNum = $phone = $make = $model = $license = '';
+    $error = $licenseError = $licenseNumError = $phoneError = $firstNameError = $lastNameError = $makeError = $modelError = '';
 
     // Cache current date for recording creation and expiration dates
     $month = Date('m');
@@ -42,7 +42,7 @@
         return ($month . '/' . $day . '/' . $year);
     }
 
-    function savePermit($first, $last, $phone, $license, $make, $model) {
+    function savePermit($first, $last, $licenseNum, $phone, $license, $make, $model) {
         global $month, $day, $year, $currentDate;
         $expirationDate = calculateExpiration($month, $day, $year);
         try {
@@ -52,9 +52,9 @@
             // Insert the vehicle and customer
             $sql = "
                 INSERT INTO customers
-                (first, last, phone)
+                (first, last, licenseNum, phone)
                 VALUES
-                ('$first', '$last', '$phone');
+                ('$first', '$last', '$licenseNum', '$phone');
 
                 INSERT INTO vehicles
                 (customer\$id, licensePlate, make, model)
@@ -96,16 +96,18 @@
     }
 
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $first   = ucwords(sanitize($_POST['first']));
-        $last    = ucwords(sanitize($_POST['last']));
-        $phone   = sanitize($_POST['phone']);
-        $make    = sanitize($_POST['make']);
-        $model   = sanitize($_POST['model']);
-        $license = strtoupper(sanitize($_POST['licensePlate']));
+        $first      = ucwords(sanitize($_POST['first']));
+        $last       = ucwords(sanitize($_POST['last']));
+        $licenseNum = sanitize($_POST['licenseNum']);
+        $phone      = sanitize($_POST['phone']);
+        $make       = sanitize($_POST['make']);
+        $model      = sanitize($_POST['model']);
+        $license    = strtoupper(sanitize($_POST['licensePlate']));
 
         // Are any of the fields empty?
         $isEmptyFirst       = empty($first);
         $isEmptyLastName    = empty($last);
+        $isEmptyLicenseNum  = empty($licenseNum);
         $isEmptyPhone       = empty($phone);
         $isEmptyMake        = empty($make);
         $isEmptyModel       = empty($model);   
@@ -113,20 +115,21 @@
 
         $error = $isEmptyFirst || $isEmptyLastName || 
                  $isEmptyPhone || $isEmptyMake     || 
-                 $isEmptyModel || $isEmptyLicense
+                 $isEmptyModel || $isEmptyLicense  || $isEmptyLicenseNum
                  ? 'All fields are required' : '';
         
         $firstNameError = (strlen($first) > 15)     ? 'First name cannot be longer than 15 characters'          : '';
         $lastNameError  = (strlen($last) > 20)      ? 'Last name cannot be longer than 20 characters'           : '';
+        $licenseNumError = (strlen($licenseNum) > 12)    ? 'License number must be 12 characters'                    : '';
         $makeError      = (strlen($make) > 15)      ? 'Make cannot be longer than 15 characters'                : '';
         $modelError     = (strlen($model) > 20)     ? 'Model cannot be longer than 20 characters'               : '';
         $licenseError   = (strlen($license) > 10)   ? 'License plate cannot be longer than 10 characters'       : '';
         $phoneError     = (strlen($phone) != 10 || !is_numeric($phone))? 'Phone number must be 10 digits long'  : '';
 
-        !$hasError = $error || $firstNameError || $lastNameError || $makeError || $modelError || $licenseError || $phoneError;
-
+        $hasError = $error || $firstNameError || $lastNameError || $licenseNumError || $makeError || $modelError || $licenseError || $phoneError;
         if(!$hasError) {
-            if(savePermit($first, $last, $phone, $license, $make, $model)) {
+            echo "trying";
+            if(savePermit($first, $last, $licenseNum, $phone, $license, $make, $model)) {
                 header('Location: index.php?updateMessage=Permit+created');
                 die;
             }
@@ -166,6 +169,17 @@
                         maxlength="20"
                         value="<?php echo $last ?>">
                         <span id="lastValidIcon" class="w3-text-red"> *</span> 
+            </p>
+            <p>
+                <span class="w3-tiny">Drivers License #, 12 characters.</span><br>
+                <input  required
+                        type="text" 
+                        name="licenseNum"
+                        id="licenseNum"
+                        placeholder="License Number"
+                        maxlength="12"
+                        value="<?php echo $licenseNum ?>">
+                        <span id="licenseNumValidIcon" class="w3-text-red"> *</span> 
             </p>
             <p>
                 <span class="w3-tiny">Phone number, 10 digits</span><br>
@@ -224,7 +238,7 @@
                   if(!empty($makeError))        { echo '<br>' . $makeError; } 
                   if(!empty($modelError))       { echo '<br>' . $modelError; } 
                   if(!empty($licenseError))     { echo '<br>' . $licenseError; } 
-
+                  if(!empty($licenseNumError))  { echo '<br>' . $licenseNumError; }
             ?>
         </p>
 </div>

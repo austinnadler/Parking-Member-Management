@@ -39,7 +39,7 @@
                     
                     if(password_verify($password, $dbPassword)) {
                         $_SESSION['username'] = $username;
-                        header('Location: index.php?message=Welcome+to+Parking+Services');
+                        header('Location: index.php?message=Welcome');
                         die;
                     } else {
                         $invalidLoginError = 'That username / password combination was not found';

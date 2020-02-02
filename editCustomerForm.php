@@ -32,7 +32,7 @@
             // Create the query.
             $sql = "
                 SELECT 
-                first, last, phone
+                first, last, phone, licenseNum
                 FROM customers
                 WHERE id=$customerID;
             ";
@@ -44,6 +44,7 @@
             $first = $row['first'];
             $last = $row['last'];
             $phone = $row['phone'];
+            $licenseNum = $row['licenseNum'];
         } catch(PDOException $e) {
             die ($e->getMessage() );
         }
@@ -51,23 +52,26 @@
 
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
         // echo 'Saving changes to database...';
-        $id      = sanitize($_POST['id']);
-        $first   = ucwords(sanitize($_POST['first']));
-        $last    = ucwords(sanitize($_POST['last']));
-        $phone   = sanitize($_POST['phone']);
+        $id         = sanitize($_POST['id']);
+        $first      = ucwords(sanitize($_POST['first']));
+        $last       = ucwords(sanitize($_POST['last']));
+        $licenseNum = sanitize($_POST['licenseNum']);
+        $phone      = sanitize($_POST['phone']);
 
         // Are any of the fields empty?
         $isEmptyFirst   = empty($first);
         $isEmptyLast    = empty($last);
         $isEmptyPhone   = empty($phone);
+        $isEmptyLicenseNum = empty($licenseNum);
 
-        $error = $isEmptyFirst || $isEmptyLast || $isEmptyPhone ? 'All fields are required' : '';
+        $error = $isEmptyFirst || $isEmptyLast || $isEmptyPhone || $isEmptyLicenseNum ? 'All fields are required' : '';
         
         $firstNameError = (strlen($first) > 15) ? 'First name cannot be longer than 15 characters' : '';
         $lastNameError  = (strlen($last) > 20)  ? 'Last name cannot be longer than 20 characters'  : '';
         $phoneError     = (strlen($phone) != 10 || !is_numeric($phone))? 'Phone number must be 10 digits long'  : '';
+        $licenseNumError = (strlen($licenseNum) != 12) ? 'License number must be 12 characters' : '';
 
-        !$hasError = $error || $firstNameError || $lastNameError || $phoneError;
+        $hasError = $error || $firstNameError || $lastNameError || $phoneError || $licenseNumError;
 
         if(!$hasError) {
             require 'includes/inc.db.php';
@@ -77,7 +81,7 @@
                 $sql = "
                     UPDATE customers
                     SET 
-                    first='$first', last='$last', phone='$phone'
+                    first='$first', last='$last', phone='$phone', licenseNum='$licenseNum'
                     WHERE id=$id;
                 ";
                 $pdoStatement = $pdo->exec($sql);
@@ -130,6 +134,17 @@
                             <span id="lastValidIcon" class="w3-text-red"> *</span> 
                 </p>
                 <p>
+                    <span class="w3-tiny">Drivers License #, 12 characters</span><br>
+                    <input  required
+                            type="text" 
+                            name="licenseNum"
+                            id="licenseNum"
+                            placeholder="License Number"
+                            maxlength="12"
+                            value="<?php echo $licenseNum ?>">
+                            <span id="licenseNumValidIcon" class="w3-text-red"> *</span> 
+                </p>
+                <p>
                     <span class="w3-tiny">Phone number, 10 digits</span><br>
                     <input  required
                             type="text"
@@ -150,6 +165,7 @@
                   if(!empty($firstNameError))   { echo '<br>' . $firstNameError;}
                   if(!empty($lastNameError))    { echo '<br>' . $lastNameError; } 
                   if(!empty($phoneError))       { echo '<br>' . $phoneError; }  
+                  if(!empty($licenseNumError))  { echo '<br>' . $licenseNumError; }
             ?>
         </p>
 </div>

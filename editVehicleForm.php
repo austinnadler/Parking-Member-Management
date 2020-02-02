@@ -58,7 +58,7 @@
         $modelError   = (strlen($model) > 20)     ? 'Model cannot be longer than 20 characters'               : '';
         $licenseError = (strlen($license) > 10)   ? 'License plate cannot be longer than 10 characters'       : '';
 
-        !$hasError = $error || $makeError || $modelError || $licenseError;
+        $hasError = $error || $makeError || $modelError || $licenseError;
 
         if(!$hasError) {
             require 'includes/inc.db.php';
