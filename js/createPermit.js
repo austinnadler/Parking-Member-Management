@@ -6,12 +6,14 @@ $(function() {
 
     let $first = $('#first');
     let $last = $('#last');
+    let $licenseNum = $('#licenseNum');
     let $phone = $('#phone');
     let $make = $('#make');
     let $model = $('#model');
     let $licensePlate = $('#licensePlate');
     let $firstValidIcon = $('#firstValidIcon');
     let $lastValidIcon = $('#lastValidIcon');
+    let $licenseNumValidIcon = $('#licenseNumValidIcon');
     let $phoneValidIcon = $('#phoneValidIcon');
     let $makeValidIcon = $('#makeValidIcon');
     let $modelValidIcon = $('#modelValidIcon');
@@ -42,6 +44,18 @@ $(function() {
             $lastValidIcon.removeClass("w3-text-green fa fa-check");
             $lastValidIcon.addClass("w3-text-red fa fa-close");
             $lastValidIcon.text('');
+        }
+
+        // Testing the drivers license number
+        if (/^\w{12}$/.test($licenseNum.val())) {
+            $licenseNumValidIcon.removeClass("w3-text-red fa fa-close");
+            $licenseNumValidIcon.addClass("w3-text-green fa fa-check");
+            $licenseNumValidIcon.text(''); // remove *
+        } else {
+            formValidFlag = false;
+            $licenseNumValidIcon.removeClass("w3-text-green fa fa-check");
+            $licenseNumValidIcon.addClass("w3-text-red fa fa-close");
+            $licenseNumValidIcon.text('');
         }
 
         // Testing the phone number

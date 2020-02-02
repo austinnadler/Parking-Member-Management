@@ -1,13 +1,15 @@
 // File: editCustomer.js
 // Austhor: Austin Nadler
 $(function() {
-    "use strict";
+    'use strict';
 
     let $first = $('#first');
     let $last = $('#last');
+    let $licenseNum = $('#licenseNum');
     let $phone = $('#phone');
     let $firstValidIcon = $('#firstValidIcon');
     let $lastValidIcon = $('#lastValidIcon');
+    let $licenseNumValidIcon = $('#licenseNumValidIcon');
     let $phoneValidIcon = $('#phoneValidIcon');
 
     $('#customerForm').on('submit', function(e) {
@@ -36,8 +38,20 @@ $(function() {
             $lastValidIcon.text('');
         }
 
+        // Testing the drivers license number
+        if (/^\w{12}$/.test($licenseNum.val())) {
+            $licenseNumValidIcon.removeClass("w3-text-red fa fa-close");
+            $licenseNumValidIcon.addClass("w3-text-green fa fa-check");
+            $licenseNumValidIcon.text(''); // remove *
+        } else {
+            formValidFlag = false;
+            $licenseNumValidIcon.removeClass("w3-text-green fa fa-check");
+            $licenseNumValidIcon.addClass("w3-text-red fa fa-close");
+            $licenseNumValidIcon.text('');
+        }
+
         // Testing the phone number
-        if (/^\d{10}$/.test($phone.val()) ) {
+        if (/^\d{10}$/.test($phone.val())) {
             $phoneValidIcon.removeClass("w3-text-red fa fa-close");
             $phoneValidIcon.addClass("w3-text-green fa fa-check");
             $phoneValidIcon.text('');
